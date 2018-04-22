@@ -8,7 +8,7 @@
 from sqlparse import sql, tokens as T
 from sqlparse.utils import split_unquoted_newlines
 
-
+# 剥除注释的过滤器
 class StripCommentsFilter(object):
     @staticmethod
     def _process(tlist):
@@ -36,7 +36,7 @@ class StripCommentsFilter(object):
         StripCommentsFilter._process(stmt)
         return stmt
 
-
+# 剥除 whitespace 的过滤器
 class StripWhitespaceFilter(object):
     def _stripws(self, tlist):
         func_name = '_stripws_{cls}'.format(cls=type(tlist).__name__)
@@ -81,7 +81,7 @@ class StripWhitespaceFilter(object):
             stmt.tokens.pop(-1)
         return stmt
 
-
+# 剥除 操作符周围空格 的过滤器
 class SpacesAroundOperatorsFilter(object):
     @staticmethod
     def _process(tlist):

@@ -17,7 +17,7 @@ from sqlparse.keywords import SQL_REGEX
 from sqlparse.compat import bytes_type, text_type, file_types
 from sqlparse.utils import consume
 
-
+# 词法分析器
 class Lexer(object):
     """Lexer
     Empty class. Leaving for backwards-compatibility
@@ -25,6 +25,7 @@ class Lexer(object):
 
     @staticmethod      # 表明是全局函数，可以直接调用，同 Java 静态函数概念
     def get_tokens(text, encoding=None):
+        #
         """
         Return an iterable of (tokentype, value) pairs generated from
         `text`. If `unfiltered` is set to `True`, the filtering mechanism
@@ -71,7 +72,7 @@ class Lexer(object):
             else:
                 yield tokens.Error, char
 
-
+# 将 sql 语句转化为流，具体逻辑在上面的类里面
 def tokenize(sql, encoding=None):
     """Tokenize sql.
 

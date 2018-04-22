@@ -9,8 +9,9 @@ from sqlparse import sql, tokens as T
 from sqlparse.compat import text_type
 from sqlparse.utils import offset, indent
 
-
+# 对齐缩进过滤器
 class AlignedIndentFilter(object):
+    # 这个格式是拼出了所有 jion 的可能吗？是正则表达式吗？
     join_words = (r'((LEFT\s+|RIGHT\s+|FULL\s+)?'
                   r'(INNER\s+|OUTER\s+|STRAIGHT\s+)?|'
                   r'(CROSS\s+|NATURAL\s+)?)?JOIN\b')
@@ -28,10 +29,11 @@ class AlignedIndentFilter(object):
         self.char = char
         self._max_kwd_len = len('select')
 
+    # nl 是 nextline 的意思吧？
     def nl(self, offset=1):
         # offset = 1 represent a single space after SELECT
         offset = -len(offset) if not isinstance(offset, int) else offset
-        # add two for the space and parens
+        # add two for the space and parens（括号）
         indent = self.indent * (2 + self._max_kwd_len)
 
         return sql.Token(T.Whitespace, self.n + self.char * (
@@ -44,13 +46,14 @@ class AlignedIndentFilter(object):
         # process the main query body
         self._process(sql.TokenList(tlist.tokens))
 
+    # 处理括号
     def _process_parenthesis(self, tlist):
         # if this isn't a subquery, don't re-indent
         _, token = tlist.token_next_by(m=(T.DML, 'SELECT'))
         if token is not None:
             with indent(self):
                 tlist.insert_after(tlist[0], self.nl('SELECT'))
-                # process the inside of the parantheses
+                # process the inside of the parantheses（括号）
                 self._process_default(tlist)
 
             # de-indent last parenthesis
@@ -59,8 +62,8 @@ class AlignedIndentFilter(object):
     def _process_identifierlist(self, tlist):
         # columns being selected
         identifiers = list(tlist.get_identifiers())
-        identifiers.pop(0)
-        [tlist.insert_before(token, self.nl()) for token in identifiers]
+        # identifiers.pop(0) # 这句话的作用是让第一个检索的值跟在 select 后面
+        [tlist.insert_before(token, self.nl()) for token in identifiers]    # 在检索出的每个值前面加一个换行
         self._process_default(tlist)
 
     def _process_case(self, tlist):

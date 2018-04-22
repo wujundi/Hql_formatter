@@ -33,8 +33,8 @@ def plugin_loaded():
 # sublime_plugin.TextCommand 是文本编辑相关的基类，文本编辑相关的命令都继承于这个基类
 class Hql_formatterCommand(sublime_plugin.TextCommand):
 
-    def run(self, edit):
-        self.view.insert(edit, 0, "Hello, World!")
+    # def run(self, edit):
+    #   self.view.insert(edit, 0, "Hello, World!")
 
     # 定义一个叫 format_sql 的函数 将 raw_sql 传进去
     # python稍稍傻逼的一点，在java中是可以随处调用this的，但是在python中，需要加入形参self，表示“当前实例的XXX”

@@ -9,7 +9,7 @@ import re
 
 from sqlparse import tokens
 
-
+# 是不是 key word ，依靠这个模块中的记录的数据来识别
 def is_keyword(value):
     val = value.upper()
     return (KEYWORDS_COMMON.get(val) or

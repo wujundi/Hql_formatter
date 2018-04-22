@@ -5,6 +5,7 @@
 # This module is part of python-sqlparse and is released under
 # the BSD License: https://opensource.org/licenses/BSD-3-Clause
 
+# 本模块针对 SQL 语句中重点的关键词
 """This module contains classes representing syntactical elements of SQL."""
 from __future__ import print_function
 
@@ -389,6 +390,7 @@ class TokenList(Token):
 class Statement(TokenList):
     """Represents a SQL statement."""
 
+    # 识别出 sql 关键词的种类
     def get_type(self):
         """Returns the type of a statement.
 

@@ -24,14 +24,15 @@ class FilterStack(object):
 
     #
     def run(self, sql, encoding=None):
-        stream = lexer.tokenize(sql, encoding)
+        stream = lexer.tokenize(sql, encoding)      # 通过词法分析器的分析，吐出一个流，其中信息均以(tokentype, value)的形式存在
         # Process token stream
         for filter_ in self.preprocess:
-            stream = filter_.process(stream)
+            stream = filter_.process(stream)    # 前处理的过滤器开始进行处理
 
-        stream = StatementSplitter().process(stream)
+        stream = StatementSplitter().process(stream)    # 整理前处理结果
 
         # Output: Stream processed Statements
+        # 进行事中处理和后处理
         for stmt in stream:
             if self._grouping:
                 stmt = grouping.group(stmt)

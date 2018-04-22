@@ -123,37 +123,37 @@ def build_filter_stack(stack, options):
       stack: :class:`~sqlparse.filters.FilterStack` instance
       options: Dictionary with options validated by validate_options.
     """
-    # Token filter
+    # Token filter， 前处理意在识别关键字
     if options.get('keyword_case'):
         # ~sqlparse.filters.FilterStack 的前处理是一个 列表
         stack.preprocess.append(
-            filters.KeywordCaseFilter(options['keyword_case']))
+            filters.KeywordCaseFilter(options['keyword_case']))     # 关键词识别过滤器
 
     if options.get('identifier_case'):
         stack.preprocess.append(
-            filters.IdentifierCaseFilter(options['identifier_case']))
+            filters.IdentifierCaseFilter(options['identifier_case']))   # 标识符识别过滤器
 
     if options.get('truncate_strings'):
-        stack.preprocess.append(filters.TruncateStringFilter(
+        stack.preprocess.append(filters.TruncateStringFilter(           # 截断字符串过滤器
             width=options['truncate_strings'], char=options['truncate_char']))
 
     if options.get('use_space_around_operators', False):
         stack.enable_grouping()     # 将 _grouping 标签置为 true
-        stack.stmtprocess.append(filters.SpacesAroundOperatorsFilter())
+        stack.stmtprocess.append(filters.SpacesAroundOperatorsFilter())     # 识别 操作符周围使用的空格 的过滤器
 
-    # After grouping
+    # After grouping，  中间处理过程
     if options.get('strip_comments'):
         stack.enable_grouping()
-        stack.stmtprocess.append(filters.StripCommentsFilter())
+        stack.stmtprocess.append(filters.StripCommentsFilter())     # 剥除注释的过滤器
 
     if options.get('strip_whitespace') or options.get('reindent'):
         stack.enable_grouping()
-        stack.stmtprocess.append(filters.StripWhitespaceFilter())
+        stack.stmtprocess.append(filters.StripWhitespaceFilter())   # 剥除 Whitespace 的过滤器
 
     if options.get('reindent'):
         stack.enable_grouping()
         stack.stmtprocess.append(
-            filters.ReindentFilter(char=options['indent_char'],
+            filters.ReindentFilter(char=options['indent_char'],     # 识别“重复”的过滤器
                                    width=options['indent_width'],
                                    wrap_after=options['wrap_after'],
                                    comma_first=options['comma_first']))
@@ -161,14 +161,14 @@ def build_filter_stack(stack, options):
     if options.get('reindent_aligned', False):
         stack.enable_grouping()
         stack.stmtprocess.append(
-            filters.AlignedIndentFilter(char=options['indent_char']))
+            filters.AlignedIndentFilter(char=options['indent_char']))   # 对齐缩进过滤器
 
     if options.get('right_margin'):
         stack.enable_grouping()
         stack.stmtprocess.append(
-            filters.RightMarginFilter(width=options['right_margin']))
+            filters.RightMarginFilter(width=options['right_margin']))   # 右边距过滤器
 
-    # Serializer
+    # Serializer，       后处理主要是在做一些履序列化，字符相关的东西
     if options.get('output_format'):
         frmt = options['output_format']
         if frmt.lower() == 'php':

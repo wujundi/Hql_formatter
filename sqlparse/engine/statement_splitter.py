@@ -76,7 +76,7 @@ class StatementSplitter(object):
 
     def process(self, stream):
         """Process the stream"""
-        EOS_TTYPE = T.Whitespace, T.Comment.Single
+        EOS_TTYPE = T.Whitespace, T.Comment.Single      # token 就是关键词。吗？
 
         # Run over all stream tokens
         for ttype, value in stream:

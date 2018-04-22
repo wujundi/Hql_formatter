@@ -55,12 +55,12 @@ def format(sql, encoding=None, **options):
 
     :returns: The formatted SQL statement as string.
     """
-    stack = engine.FilterStack()
+    stack = engine.FilterStack()                                # 首先建立一个过滤器栈
     options = formatter.validate_options(options)               # 检查一遍所有传进来的参数是否符合枚举值的要求
-    stack = formatter.build_filter_stack(stack, options)        # 为整个过程设置 “过滤器栈”
+    stack = formatter.build_filter_stack(stack, options)        # 设置 “过滤器栈” 中各个处理过程的值
     stack.postprocess.append(filters.SerializerUnicode())
     return u''.join(stack.run(sql, encoding))                   # 以 unicode 的编码格式
-                                                                # 使用 ''(空字符) 将 [] 连起来
+                                                                # 使用 ''(空字符) 将 stack.run 吐出的结果连起来
                                                                 #
 
 

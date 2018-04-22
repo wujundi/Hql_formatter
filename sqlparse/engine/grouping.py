@@ -325,7 +325,7 @@ def align_comments(tlist):
             tidx = pidx
         tidx, token = tlist.token_next_by(i=sql.Comment, idx=tidx)
 
-
+#
 def group(stmt):
     for func in [
         group_comments,
@@ -357,7 +357,7 @@ def group(stmt):
         func(stmt)
     return stmt
 
-
+# 将相关联的关键词组合起来
 def _group(tlist, cls, match,
            valid_prev=lambda t: True,
            valid_next=lambda t: True,

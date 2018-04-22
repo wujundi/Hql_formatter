@@ -1,0 +1,3 @@
+[
+    { "keys": ["ctrl+d", "ctrl+f"], "command": "hql_formatter" }
+]

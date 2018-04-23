@@ -29,15 +29,13 @@ class AlignedIndentFilter(object):
         self.char = char
         self._max_kwd_len = len('select')
 
-    # nl 是 nextline 的意思吧？
+    # nl 是 nextline 的意思吧？ry
     def nl(self, offset=1):
         # offset = 1 represent a single space after SELECT
         offset = -len(offset) if not isinstance(offset, int) else offset
         # add two for the space and parens（括号）
         indent = self.indent * (2 + self._max_kwd_len)
-
-        return sql.Token(T.Whitespace, self.n + self.char * (
-            self._max_kwd_len + offset + indent + self.offset))
+        return sql.Token(T.Whitespace, self.n + self.char * (self._max_kwd_len + offset + indent + self.offset))
 
     def _process_statement(self, tlist):
         if tlist.tokens[0].is_whitespace and self.indent == 0:

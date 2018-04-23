@@ -34,7 +34,7 @@ class Token(object):
         self.ttype = ttype
         self.parent = None
         self.is_group = False
-        self.is_keyword = ttype in T.Keyword
+        self.is_keyword = ttype in T.Keyword    # 判断 ttype 是否是 T.keyword 的成员
         self.is_whitespace = self.ttype in T.Whitespace
         self.normalized = value.upper() if self.is_keyword else value
 

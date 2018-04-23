@@ -14,6 +14,7 @@ string types, buffers and metaclasses.
 Parts of the code is copied directly from six:
 https://bitbucket.org/gutworth/six
 """
+# 为了解决python大版本之间类型的兼容性
 
 import sys
 from io import TextIOBase

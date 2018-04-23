@@ -68,6 +68,7 @@ class Hql_formatterCommand(sublime_plugin.TextCommand):
         self.view.replace(edit, region, foramtted_text)
 
     def run(self, edit):
+        print('hql_formatter works') # 调试专用
         # 获取包含当前 view 的 window
         window = self.view.window()
         # 获取当前 window 下正在编辑的 view

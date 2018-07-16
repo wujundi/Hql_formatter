@@ -13,6 +13,8 @@ from sqlparse.engine.statement_splitter import StatementSplitter
 
 # FileerStack 类
 class FilterStack(object):
+
+    # python 中的构造方法
     def __init__(self):
         self.preprocess = []            # 前处理
         self.stmtprocess = []           # 过程处理
@@ -26,6 +28,7 @@ class FilterStack(object):
     def run(self, sql, encoding=None):
         stream = lexer.tokenize(sql, encoding)      # 通过词法分析器的分析，吐出一个流，其中信息均以(tokentype, value)的形式存在
         # Process token stream
+        # 遍历前处理列表中的过滤器
         for filter_ in self.preprocess:
             stream = filter_.process(stream)    # 前处理的过滤器开始进行处理
 

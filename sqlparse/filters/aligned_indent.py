@@ -109,6 +109,7 @@ class AlignedIndentFilter(object):
             tidx += 1
             tidx, token = self._next_token(tlist, tidx)
 
+
     def _process_default(self, tlist):
         self._split_kwds(tlist)
         # process any sub-sub statements
@@ -120,11 +121,13 @@ class AlignedIndentFilter(object):
             with offset(self, offset_):
                 self._process(sgroup)
 
+    # 2、
     def _process(self, tlist):
-        func_name = '_process_{cls}'.format(cls=type(tlist).__name__)
-        func = getattr(self, func_name.lower(), self._process_default)
+        func_name = '_process_{cls}'.format(cls=type(tlist).__name__) # 返回对象类型的名称，类似于反射？
+        func = getattr(self, func_name.lower(), self._process_default) # getattr(object, name[, default]) 获取对象的相应属性
         func(tlist)
 
+    # 1、对外调用的入口
     def process(self, stmt):
         self._process(stmt)
         return stmt
